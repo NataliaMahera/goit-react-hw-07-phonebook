@@ -8,11 +8,12 @@ import Section from 'components/Section/Section';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContactsThunk } from 'redux/operations';
-import { selectContacts, selectIsLoading } from 'redux/selectors';
+import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
 
 const App = () => {
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   const dispatch = useDispatch();
 
@@ -31,6 +32,7 @@ const App = () => {
         ) : (
           <Notification message="Your phonebook is empty. Please add your contact!" />
         )}
+        {error !== null && <p className="error-bage">{error}</p>}
         {isLoading && <Loader />}
         {contacts.length > 0 && <ContactList />}
       </Section>

@@ -4,12 +4,14 @@ import { selectVisibleContacts } from 'redux/selectors';
 import css from './ContactList.module.css';
 
 const ContactList = () => {
-  const contacts = useSelector(selectVisibleContacts);
+  const filteredContacts = useSelector(selectVisibleContacts);
+
+  const sotredContacts = [...filteredContacts].sort((a, b) => b.name - a.name);
 
   return (
     <>
       <ul className={css.contactList}>
-        {contacts.map(({ id, name, phone }) => (
+        {sotredContacts.map(({ id, name, phone }) => (
           <ContactListItem key={id} id={id} name={name} phone={phone} />
         ))}
       </ul>
