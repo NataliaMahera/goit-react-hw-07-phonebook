@@ -24,21 +24,21 @@ const handlePending = state => {
 
 const handleFulfilledGet = (state, { payload }) => {
   state.isLoading = false;
-  state.contactItems = payload; // Оновлення списку контактів у стані
   state.error = null;
+  state.contactItems = payload; // Оновлення списку контактів у стані
 };
 
 const handleFulfilledAdd = (state, { payload }) => {
   state.isLoading = false;
-  state.contactItems = [payload, ...state.contactItems]; // Dо існуючих контактів додаємо новий який приходить з запиту
   state.error = null;
+  state.contactItems = [payload, ...state.contactItems]; // Dо існуючих контактів додаємо новий який приходить з запиту
 };
 
 const handleFulfilledDelete = (state, { payload }) => {
   state.isLoading = false;
-  state.contactItems = state.contactItems.filter(({ id }) => id !== payload);
-  console.log('Deleting contact with ID:', payload);
   state.error = null;
+  state.contactItems = state.contactItems.filter(({ id }) => id !== payload.id);
+  console.log('Deleting contact with ID:', payload);
 };
 
 const handleRejected = (state, { payload }) => {

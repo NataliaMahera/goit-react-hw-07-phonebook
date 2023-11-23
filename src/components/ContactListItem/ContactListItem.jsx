@@ -8,7 +8,8 @@ const ContactListItem = ({ id, name, phone }) => {
   return (
     <div className={css.wrapper}>
       <li key={id} className={css.contactListItem}>
-        {name}: {phone}
+        <b className={css.name}>{name} : </b>
+        {phone.slice(0, 13)}
       </li>
       <button
         type="button"

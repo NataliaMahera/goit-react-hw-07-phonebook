@@ -24,3 +24,11 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.274);
     cursor: pointer;
 }
+
+.deleteBtn:hover{
+    background-color: #fff;
+}
+
+.name {
+    color: rgba(0, 0, 0, 0.74); 
+}
