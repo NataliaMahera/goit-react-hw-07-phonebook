@@ -1,13 +1,17 @@
-export const getContacts = state => state.contacts.contacts; // Повертаємо контакти зі state
-export const getFilter = state => state.filter; // Повертаємо поточний фільтр зі state
+import { createSelector } from '@reduxjs/toolkit';
 
-// export const getVisibleContacts = state => {
-//   const contacts = getContacts(state); // Отримали контакти
-//   const filter = getFilter(state); // Отримали поточний фільтр
-//   const normalizedFilter = filter.toLowerCase(); // Нормалізували фільтр
+export const selectContacts = state => state.contacts.contactItems; // Повертаємо контакти зі state
+export const selectFilter = state => state.filter.filterQuery; // Повертаємо поточний фільтр зі state
+export const selectIsLoading = state => state.contacts.isloading;
+export const selectError = state => state.contacts.error;
 
-//   // Філтруємо контакти для повернення імені з нормалізованого фільтру в рядку нижнього регістру
-//   return contacts.filter(({ name }) =>
-//     name.toLowerCase().includes(normalizedFilter)
-//   );
-// };
+export const selectVisibleContacts = createSelector(
+  [selectContacts, selectFilter],
+  (contacts, filterQuery) => {
+    return contacts.filter(
+      ({ name, phone }) =>
+        name.toLowerCase().includes(filterQuery.toLowerCase().trim()) ||
+        phone.includes(filterQuery.toLowerCase().trim())
+    );
+  }
+);

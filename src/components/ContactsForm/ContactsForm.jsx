@@ -1,52 +1,40 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contacts-slice';
+import { selectContacts } from 'redux/selectors';
 import css from './ContactsForm.module.css';
+import { nanoid } from 'nanoid';
+import { addContactsThunk } from 'redux/operations';
 
 const ContactsForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [data, setData] = useState({ name: '', phone: '' });
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  // Обробка відправки форми
   const handleSubmit = event => {
     event.preventDefault();
 
-    // Перевірка на дублікат імені, чи імя яке хочемо додати співпадає з тим яке вже є
     const isExist = contacts.some(
-      contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim()
+      contact =>
+        contact.name.toLowerCase().trim() === data.name.toLowerCase().trim() ||
+        contact.phone === data.phone
     );
 
-    // якщо хоч один елемент співпадє то в isExist буде true
     if (isExist) {
-      alert(`${name} is already in contacts.`);
+      alert(`${data.name} is already in contacts.`);
       return;
     }
 
-    // Виклик функції з передачею об'єкту контактів. Redux в slice в action отримає цей об'єкт
-    dispatch(addContact({ name, number }));
-    setName('');
-    setNumber('');
+    dispatch(
+      addContactsThunk({ name: data.name, phone: data.phone, id: nanoid() })
+    );
+    setData({ name: '', phone: '' });
   };
 
-  //Обробка зміни значення полів форми
   const handleChange = event => {
     const { name, value } = event.target;
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-
-      default:
-        break;
-    }
+    setData({ ...data, [name]: value });
   };
 
   return (
@@ -57,7 +45,7 @@ const ContactsForm = () => {
           type="text"
           name="name"
           className={css.input}
-          value={name}
+          value={data.name}
           onChange={handleChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           required
@@ -65,12 +53,12 @@ const ContactsForm = () => {
       </label>
 
       <label className={css.label}>
-        Number
+        Phone
         <input
           type="tel"
-          name="number"
+          name="phone"
           className={css.input}
-          value={number}
+          value={data.phone}
           onChange={handleChange}
           pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
           required

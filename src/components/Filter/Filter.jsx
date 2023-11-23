@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { changeFilter } from 'redux/filter-slice';
-import { getFilter } from 'redux/selectors';
+import { changeFilter } from 'redux/filterSlice';
+import { selectFilter } from 'redux/selectors';
 import css from './Filter.module.css';
 
 // Компонент фільтрації контактів
 const Filter = () => {
-  const filter = useSelector(getFilter);
+  const filterQuery = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const onChangeFilter = ({ currentTarget: { value } }) => {
@@ -20,7 +20,7 @@ const Filter = () => {
           type="text"
           name="filter"
           className={css.input}
-          value={filter}
+          value={filterQuery}
           onChange={onChangeFilter}
         />
       </label>
