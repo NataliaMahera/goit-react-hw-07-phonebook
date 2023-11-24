@@ -37,7 +37,7 @@ const handleFulfilledAdd = (state, { payload }) => {
 const handleFulfilledDelete = (state, { payload }) => {
   state.isLoading = false;
   state.error = null;
-  state.contactItems = state.contactItems.filter(({ id }) => id !== payload.id);
+  state.contactItems = state.contactItems.filter(({ id }) => id !== payload);
   console.log('Deleting contact with ID:', payload);
 };
 

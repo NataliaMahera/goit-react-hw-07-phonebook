@@ -20,13 +20,13 @@
     padding:2px 10px;
     height: 30px;
     min-width: 80px;
-    background-color: rgba(250, 198, 26, 0.63);
+    background-color:whitesmoke;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.274);
     cursor: pointer;
 }
 
 .deleteBtn:hover{
-    background-color: #fff;
+    background-color: rgba(250, 198, 26, 0.63);
 }
 
 .name {

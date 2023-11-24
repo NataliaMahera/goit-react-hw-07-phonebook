@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body {
+  background: url(../public/wallpaper1.jpg) center / cover no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}

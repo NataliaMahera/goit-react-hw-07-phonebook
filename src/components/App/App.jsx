@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContactsThunk } from 'redux/operations';
 import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
+import css from './App.module.css';
 
 const App = () => {
   const contacts = useSelector(selectContacts);
@@ -32,7 +33,7 @@ const App = () => {
         ) : (
           <Notification message="Your phonebook is empty. Please add your contact!" />
         )}
-        {error !== null && <p className="error-bage">{error}</p>}
+        {error !== null && <p className={css.error}>{error}</p>}
         {isLoading && <Loader />}
         {contacts.length > 0 && <ContactList />}
       </Section>
